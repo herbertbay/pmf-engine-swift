@@ -1,0 +1,6 @@
+framework module pmf_engine_swift {
+  umbrella header "pmf-engine-swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -1,0 +1,6 @@
+framework module Pods_pmf_engine_swift_Example {
+  umbrella header "Pods-pmf-engine-swift_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

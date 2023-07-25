@@ -1,0 +1,16 @@
+PODS:
+  - pmf-engine-swift (0.1.0)
+
+DEPENDENCIES:
+  - pmf-engine-swift (from `../`)
+
+EXTERNAL SOURCES:
+  pmf-engine-swift:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  pmf-engine-swift: 24a693369b51354fd1b1cdf95c687d2936cfbea9
+
+PODFILE CHECKSUM: 95cc4226594070b188bcc376314c8ea92474ba10
+
+COCOAPODS: 1.12.1

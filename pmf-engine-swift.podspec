@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'pmf-engine-swift'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of pmf-engine-swift.'
+  s.summary          = 'PDF Engine Swift: Collect valuable user feedback through interactive questions after a two-week usage and tracking of two key events.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,17 +18,21 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+'PDF Engine Swift is an iOS framework that empowers developers to seamlessly integrate interactive question prompts for valuable user feedback, ensuring two weeks of app usage and tracking at least two key events to ensure meaningful insights and engagement.'
                        DESC
 
-  s.homepage         = 'https://github.com/Nataliia/pmf-engine-swift'
+  s.homepage         = 'https://github.com/herbertbay/pmf-engine-swift'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'Nataliia' => 'nataliia@earkick.com' }
-  s.source           = { :git => 'https://github.com/Nataliia/pmf-engine-swift.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/herbertbay/pmf-engine-swift.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
-  s.ios.deployment_target = '10.0'
+  s.ios.deployment_target = '13.0'
+  s.swift_version = '5.0'
+  s.platforms = {
+    "ios": "13.0"
+  }
 
   s.source_files = 'pmf-engine-swift/Classes/**/*'
   

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -12,9 +12,17 @@
 		51C1D5053EEBF0200D75EDA398514F4A /* Pods-pmf-engine-swift_Example-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3AFC8EB9B13577CC8B6108FD75ECB301 /* Pods-pmf-engine-swift_Example-dummy.m */; };
 		5B5350CC43F8FDABB48E58B7AC192AD4 /* pmf-engine-swift-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EAE962D171FF0B604EA8DAEF0615669 /* pmf-engine-swift-dummy.m */; };
 		7183F914D5B97666AF3990E55D83A4A5 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
+		84B4A3BF2A712F1B0072B1F8 /* BaseNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3BE2A712F1B0072B1F8 /* BaseNetworkService.swift */; };
+		84B4A3C12A712FCE0072B1F8 /* PMFNetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3C02A712FCE0072B1F8 /* PMFNetworkService.swift */; };
+		84B4A3C42A72852E0072B1F8 /* PMFEnginePopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3C32A72852E0072B1F8 /* PMFEnginePopupView.swift */; };
+		84B4A3C62A728A8B0072B1F8 /* PMFEngineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3C52A728A8B0072B1F8 /* PMFEngineViewController.swift */; };
+		84B4A3CB2A728ECD0072B1F8 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3CA2A728ECD0072B1F8 /* UIView+Constraints.swift */; };
+		84B4A3CD2A72902D0072B1F8 /* UIStackView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3CC2A72902D0072B1F8 /* UIStackView+Layout.swift */; };
+		84B4A3CF2A72C5A00072B1F8 /* UIViewController+Top.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3CE2A72C5A00072B1F8 /* UIViewController+Top.swift */; };
+		84EBA0E92A711D9B009F817B /* PMFEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBA0E82A711D9B009F817B /* PMFEngine.swift */; };
+		84EBA0EC2A712392009F817B /* PMFUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBA0EB2A712392009F817B /* PMFUserDefaults.swift */; };
 		AA8571990F873B09809AE824478BC910 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
 		BAE22DD7E4ED394D94CEA4AF6F93A284 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
-		C565BE7516D841B84D7A88DF28FA645A /* ReplaceMe.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D04A1560200FF5896F332D9869CD994 /* ReplaceMe.swift */; };
 		E333D5995083E966869D294843268F66 /* Pods-pmf-engine-swift_Tests-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D86CB007C51CE0AC6540CE86737895E /* Pods-pmf-engine-swift_Tests-dummy.m */; };
 		F378F41D832541B6F06B41862888D8C4 /* pmf-engine-swift-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = AC1E97A0AD250CE8BF1A24D272D27A1F /* pmf-engine-swift-umbrella.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
@@ -37,12 +45,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		04FEB7A8EA283AA54909F32DC720375E /* pmf-engine-swift */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "pmf-engine-swift"; path = pmf_engine_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		04FEB7A8EA283AA54909F32DC720375E /* pmf_engine_swift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = pmf_engine_swift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		060FED7DB62EA17A1B9F6553D097FB0B /* Pods-pmf-engine-swift_Tests-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-pmf-engine-swift_Tests-umbrella.h"; sourceTree = "<group>"; };
 		0900CF1CC975626FB5C23A03C71BD55F /* Pods-pmf-engine-swift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-pmf-engine-swift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		13EBBADBFEC69BCDFF52AF703F5379E0 /* pmf-engine-swift-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "pmf-engine-swift-Info.plist"; sourceTree = "<group>"; };
-		15586C9F0D3D15C00FB60770F7B0E5F0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; path = LICENSE; sourceTree = "<group>"; };
-		1E2070D79240756D0F7C861F57011202 /* Pods-pmf-engine-swift_Tests */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-pmf-engine-swift_Tests"; path = Pods_pmf_engine_swift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		15586C9F0D3D15C00FB60770F7B0E5F0 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		1E2070D79240756D0F7C861F57011202 /* Pods_pmf_engine_swift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pmf_engine_swift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2173B61363710B1357A5C9EE6FA40052 /* Pods-pmf-engine-swift_Example-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-pmf-engine-swift_Example-acknowledgements.plist"; sourceTree = "<group>"; };
 		235E11F5F68A59815FC6A2AC7E7A9682 /* Pods-pmf-engine-swift_Example-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-pmf-engine-swift_Example-acknowledgements.markdown"; sourceTree = "<group>"; };
 		3AFC8EB9B13577CC8B6108FD75ECB301 /* Pods-pmf-engine-swift_Example-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-pmf-engine-swift_Example-dummy.m"; sourceTree = "<group>"; };
@@ -50,24 +58,32 @@
 		5EED0817E94D8403B408826532AB7B50 /* pmf-engine-swift.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "pmf-engine-swift.modulemap"; sourceTree = "<group>"; };
 		61FE0F5497E0155AAA7C8D1C699E25F0 /* pmf-engine-swift.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "pmf-engine-swift.debug.xcconfig"; sourceTree = "<group>"; };
 		680FBC05AF561F4DF6FCF5106BC32E68 /* pmf-engine-swift-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "pmf-engine-swift-prefix.pch"; sourceTree = "<group>"; };
-		6D04A1560200FF5896F332D9869CD994 /* ReplaceMe.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ReplaceMe.swift; path = "pmf-engine-swift/Classes/ReplaceMe.swift"; sourceTree = "<group>"; };
 		73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		7E3EC6D22F494551E970F2E79F20135A /* pmf-engine-swift.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "pmf-engine-swift.release.xcconfig"; sourceTree = "<group>"; };
-		845D6B95D58C54CA0436AC9B0462AAAA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
+		845D6B95D58C54CA0436AC9B0462AAAA /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		84B4A3BE2A712F1B0072B1F8 /* BaseNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNetworkService.swift; sourceTree = "<group>"; };
+		84B4A3C02A712FCE0072B1F8 /* PMFNetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFNetworkService.swift; sourceTree = "<group>"; };
+		84B4A3C32A72852E0072B1F8 /* PMFEnginePopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFEnginePopupView.swift; sourceTree = "<group>"; };
+		84B4A3C52A728A8B0072B1F8 /* PMFEngineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFEngineViewController.swift; sourceTree = "<group>"; };
+		84B4A3CA2A728ECD0072B1F8 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
+		84B4A3CC2A72902D0072B1F8 /* UIStackView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Layout.swift"; sourceTree = "<group>"; };
+		84B4A3CE2A72C5A00072B1F8 /* UIViewController+Top.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Top.swift"; sourceTree = "<group>"; };
+		84EBA0E82A711D9B009F817B /* PMFEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFEngine.swift; sourceTree = "<group>"; };
+		84EBA0EB2A712392009F817B /* PMFUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFUserDefaults.swift; sourceTree = "<group>"; };
 		8CE870FE75B29AE5A84D364B2CDC599E /* Pods-pmf-engine-swift_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-pmf-engine-swift_Tests-Info.plist"; sourceTree = "<group>"; };
 		94F7C75F69D24EC72DA12BCE126DA53A /* Pods-pmf-engine-swift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-pmf-engine-swift_Tests.release.xcconfig"; sourceTree = "<group>"; };
-		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		9D940727FF8FB9C785EB98E56350EF41 /* Podfile */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9EAE962D171FF0B604EA8DAEF0615669 /* pmf-engine-swift-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "pmf-engine-swift-dummy.m"; sourceTree = "<group>"; };
 		AC1E97A0AD250CE8BF1A24D272D27A1F /* pmf-engine-swift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "pmf-engine-swift-umbrella.h"; sourceTree = "<group>"; };
 		AEB5737ECF3774E980AC7C7DF637BD3A /* Pods-pmf-engine-swift_Tests.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-pmf-engine-swift_Tests.modulemap"; sourceTree = "<group>"; };
 		B2BFE3529CC15DB541E3B7119024316C /* Pods-pmf-engine-swift_Tests-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-pmf-engine-swift_Tests-acknowledgements.plist"; sourceTree = "<group>"; };
 		BD3F3E54AA79ABF0AB020CE7BD814CCB /* Pods-pmf-engine-swift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-pmf-engine-swift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		C7A3707560C1E0B6A7D2CB122DE5A824 /* Pods-pmf-engine-swift_Example.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-pmf-engine-swift_Example.modulemap"; sourceTree = "<group>"; };
-		C9CD2FE6E439D93C19C9D35028A7D4E0 /* Pods-pmf-engine-swift_Example */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = "Pods-pmf-engine-swift_Example"; path = Pods_pmf_engine_swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C9CD2FE6E439D93C19C9D35028A7D4E0 /* Pods_pmf_engine_swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pmf_engine_swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CA49E8DEA4E03238CCF26535F5B25180 /* Pods-pmf-engine-swift_Tests-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-pmf-engine-swift_Tests-acknowledgements.markdown"; sourceTree = "<group>"; };
 		DFBCDDD610C3EADF33EC8922092E950E /* Pods-pmf-engine-swift_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-pmf-engine-swift_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		E17FBB69B3822BB2E1E8EF485DB9FA91 /* Pods-pmf-engine-swift_Example-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-pmf-engine-swift_Example-frameworks.sh"; sourceTree = "<group>"; };
-		E34D80E96A0514E62D9F6678039F7CA0 /* pmf-engine-swift.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; lastKnownFileType = text; path = "pmf-engine-swift.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		E34D80E96A0514E62D9F6678039F7CA0 /* pmf-engine-swift.podspec */ = {isa = PBXFileReference; explicitFileType = text.script.ruby; includeInIndex = 1; indentWidth = 2; path = "pmf-engine-swift.podspec"; sourceTree = "<group>"; tabWidth = 2; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		FCAC50F574BF0F898AB19B58D604D8A6 /* Pods-pmf-engine-swift_Example-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-pmf-engine-swift_Example-umbrella.h"; sourceTree = "<group>"; };
 		FE5533E2E79610881776BB58B0D71A15 /* Pods-pmf-engine-swift_Example-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-pmf-engine-swift_Example-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,9 +119,9 @@
 		1174C949F5EC7D3ED5A9C07001B9610E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				04FEB7A8EA283AA54909F32DC720375E /* pmf-engine-swift */,
-				C9CD2FE6E439D93C19C9D35028A7D4E0 /* Pods-pmf-engine-swift_Example */,
-				1E2070D79240756D0F7C861F57011202 /* Pods-pmf-engine-swift_Tests */,
+				04FEB7A8EA283AA54909F32DC720375E /* pmf_engine_swift.framework */,
+				C9CD2FE6E439D93C19C9D35028A7D4E0 /* Pods_pmf_engine_swift_Example.framework */,
+				1E2070D79240756D0F7C861F57011202 /* Pods_pmf_engine_swift_Tests.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -146,7 +162,7 @@
 		51C12E7E1243D07927A3E5FFE43663DB /* pmf-engine-swift */ = {
 			isa = PBXGroup;
 			children = (
-				6D04A1560200FF5896F332D9869CD994 /* ReplaceMe.swift */,
+				84EBA0E72A701F6D009F817B /* Classes */,
 				57BA8875B8859FDC902AD5B7466F2E80 /* Pod */,
 				E7AED8E279864AF292328A71AEDB4B2A /* Support Files */,
 			);
@@ -170,6 +186,54 @@
 				845D6B95D58C54CA0436AC9B0462AAAA /* README.md */,
 			);
 			name = Pod;
+			sourceTree = "<group>";
+		};
+		84B4A3BD2A712EA80072B1F8 /* CloudFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				84B4A3BE2A712F1B0072B1F8 /* BaseNetworkService.swift */,
+				84B4A3C02A712FCE0072B1F8 /* PMFNetworkService.swift */,
+			);
+			path = CloudFunctions;
+			sourceTree = "<group>";
+		};
+		84B4A3C22A7285130072B1F8 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84B4A3C92A728EB20072B1F8 /* Helpers */,
+				84B4A3C32A72852E0072B1F8 /* PMFEnginePopupView.swift */,
+				84B4A3C52A728A8B0072B1F8 /* PMFEngineViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		84B4A3C92A728EB20072B1F8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				84B4A3CA2A728ECD0072B1F8 /* UIView+Constraints.swift */,
+				84B4A3CC2A72902D0072B1F8 /* UIStackView+Layout.swift */,
+				84B4A3CE2A72C5A00072B1F8 /* UIViewController+Top.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		84EBA0E72A701F6D009F817B /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				84B4A3C22A7285130072B1F8 /* Views */,
+				84B4A3BD2A712EA80072B1F8 /* CloudFunctions */,
+				84EBA0EA2A71237F009F817B /* UserDefaults */,
+				84EBA0E82A711D9B009F817B /* PMFEngine.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		84EBA0EA2A71237F009F817B /* UserDefaults */ = {
+			isa = PBXGroup;
+			children = (
+				84EBA0EB2A712392009F817B /* PMFUserDefaults.swift */,
+			);
+			path = UserDefaults;
 			sourceTree = "<group>";
 		};
 		8DBACF9A52C90C2BE36256E21F9C4B36 /* Development Pods */ = {
@@ -269,7 +333,7 @@
 			);
 			name = "Pods-pmf-engine-swift_Example";
 			productName = Pods_pmf_engine_swift_Example;
-			productReference = C9CD2FE6E439D93C19C9D35028A7D4E0 /* Pods-pmf-engine-swift_Example */;
+			productReference = C9CD2FE6E439D93C19C9D35028A7D4E0 /* Pods_pmf_engine_swift_Example.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		217A5B0426BA17E91BA8F5FEF3E68979 /* pmf-engine-swift */ = {
@@ -287,7 +351,7 @@
 			);
 			name = "pmf-engine-swift";
 			productName = pmf_engine_swift;
-			productReference = 04FEB7A8EA283AA54909F32DC720375E /* pmf-engine-swift */;
+			productReference = 04FEB7A8EA283AA54909F32DC720375E /* pmf_engine_swift.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		6C5B36A76DF44D378DE40358CD170F22 /* Pods-pmf-engine-swift_Tests */ = {
@@ -306,7 +370,7 @@
 			);
 			name = "Pods-pmf-engine-swift_Tests";
 			productName = Pods_pmf_engine_swift_Tests;
-			productReference = 1E2070D79240756D0F7C861F57011202 /* Pods-pmf-engine-swift_Tests */;
+			productReference = 1E2070D79240756D0F7C861F57011202 /* Pods_pmf_engine_swift_Tests.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -315,8 +379,14 @@
 		BFDFE7DC352907FC980B868725387E98 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1240;
-				LastUpgradeCheck = 1240;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					217A5B0426BA17E91BA8F5FEF3E68979 = {
+						LastSwiftMigration = 1430;
+					};
+				};
 			};
 			buildConfigurationList = 4821239608C13582E20E6DA73FD5F1F9 /* Build configuration list for PBXProject "Pods" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -384,7 +454,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B5350CC43F8FDABB48E58B7AC192AD4 /* pmf-engine-swift-dummy.m in Sources */,
-				C565BE7516D841B84D7A88DF28FA645A /* ReplaceMe.swift in Sources */,
+				84B4A3BF2A712F1B0072B1F8 /* BaseNetworkService.swift in Sources */,
+				84B4A3CF2A72C5A00072B1F8 /* UIViewController+Top.swift in Sources */,
+				84EBA0EC2A712392009F817B /* PMFUserDefaults.swift in Sources */,
+				84B4A3C42A72852E0072B1F8 /* PMFEnginePopupView.swift in Sources */,
+				84EBA0E92A711D9B009F817B /* PMFEngine.swift in Sources */,
+				84B4A3CD2A72902D0072B1F8 /* UIStackView+Layout.swift in Sources */,
+				84B4A3C62A728A8B0072B1F8 /* PMFEngineViewController.swift in Sources */,
+				84B4A3C12A712FCE0072B1F8 /* PMFNetworkService.swift in Sources */,
+				84B4A3CB2A728ECD0072B1F8 /* UIView+Constraints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -410,21 +488,27 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 7E3EC6D22F494551E970F2E79F20135A /* pmf-engine-swift.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/pmf-engine-swift/pmf-engine-swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/pmf-engine-swift/pmf-engine-swift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/pmf-engine-swift/pmf-engine-swift.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_MODULE_NAME = pmf_engine_swift;
 				PRODUCT_NAME = pmf_engine_swift;
 				SDKROOT = iphoneos;
@@ -444,20 +528,25 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-pmf-engine-swift_Tests/Pods-pmf-engine-swift_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-pmf-engine-swift_Tests/Pods-pmf-engine-swift_Tests.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -477,20 +566,25 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-pmf-engine-swift_Tests/Pods-pmf-engine-swift_Tests-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-pmf-engine-swift_Tests/Pods-pmf-engine-swift_Tests.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -511,20 +605,25 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-pmf-engine-swift_Example/Pods-pmf-engine-swift_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-pmf-engine-swift_Example/Pods-pmf-engine-swift_Example.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -573,6 +672,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -588,11 +688,10 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				SWIFT_VERSION = 5.0;
@@ -606,20 +705,25 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				INFOPLIST_FILE = "Target Support Files/Pods-pmf-engine-swift_Example/Pods-pmf-engine-swift_Example-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACH_O_TYPE = staticlib;
 				MODULEMAP_FILE = "Target Support Files/Pods-pmf-engine-swift_Example/Pods-pmf-engine-swift_Example.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -638,26 +742,33 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 61FE0F5497E0155AAA7C8D1C699E25F0 /* pmf-engine-swift.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_WEAK = NO;
-				"CODE_SIGN_IDENTITY[sdk=appletvos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
+				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
 				GCC_PREFIX_HEADER = "Target Support Files/pmf-engine-swift/pmf-engine-swift-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/pmf-engine-swift/pmf-engine-swift-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "Target Support Files/pmf-engine-swift/pmf-engine-swift.modulemap";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu11 gnu++14";
 				PRODUCT_MODULE_NAME = pmf_engine_swift;
 				PRODUCT_NAME = pmf_engine_swift;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) ";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -700,6 +811,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -718,12 +830,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;

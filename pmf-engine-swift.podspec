@@ -34,7 +34,7 @@ Pod::Spec.new do |s|
     "ios": "13.0"
   }
 
-  s.source_files = 'pmf-engine-swift/Classes/**/*'
+  s.source_files = 'Classes/**/*'
   
   # s.resource_bundles = {
   #   'pmf-engine-swift' => ['pmf-engine-swift/Assets/*.png']

@@ -19,9 +19,9 @@ enum NetworkError: LocalizedError {
 // MARK: - onMainThread Function
 
 func onMainThread(after: Double = 0.0, completion: @escaping () -> Void) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + after) {
-        completion()
-    }
+  DispatchQueue.main.asyncAfter(deadline: .now() + after) {
+    completion()
+  }
 }
 
 // MARK: - Type Aliases

@@ -1,6 +1,15 @@
 import XCTest
 @testable import pmf_engine_swift
 
+// MARK: - Constants
+
+private struct TestConstants {
+  static let testAccountId = "yourAccountId"
+  static let testUserId = "yourUserId"
+}
+
+// MARK: - MockUserDefaults
+
 class MockUserDefaults: PMFUserDefaultsProtocol {
   var registeredDate: Date?
   var accountId: String?
@@ -8,14 +17,33 @@ class MockUserDefaults: PMFUserDefaultsProtocol {
   var keyActionsPerformedCount: [String : Int] = [:]
 }
 
-class PMFEngineTests: XCTestCase {
+// MARK: - MockPMFNetworkService
 
-  var pmfEngine: PMFEngineExtendedProtocol!
+class MockPMFNetworkService: PMFNetworkProtocol {
+  var shouldSucceed = true
+  var returnedCommands: [PMFNetworkService.CommandEntity]? = nil
+  var eventsTracked: [(accountId: String, userId: String, eventName: String)] = []
+
+  func trackEvent(accountId: String, userId: String, eventName: String) {
+    eventsTracked.append((accountId, userId, eventName))
+  }
+
+  func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping ([PMFNetworkService.CommandEntity]?) -> Void) {
+    if shouldSucceed || forceShow {
+      completion(returnedCommands)
+    } else {
+      completion(nil)
+    }
+  }
+}
+
+class PMFEngineTests: XCTestCase {
+  var pmfEngine: PMFProtocol!
 
   override func setUp() {
     super.setUp()
-    pmfEngine = PMFEngine.default
 
+    pmfEngine = PMFEngine.default
     (pmfEngine as! PMFEngine).defaults = MockUserDefaults()
   }
 
@@ -24,18 +52,22 @@ class PMFEngineTests: XCTestCase {
     super.tearDown()
   }
 
-  // Test if the configure method sets the defaults correctly
+  // Testing configuration method
   func testConfigure() {
     let defaults = (pmfEngine as! PMFEngine).defaults
+    pmfEngine.configure(accountId: TestConstants.testAccountId, userId: TestConstants.testUserId)
 
-    pmfEngine.configure(accountId: "yourAccountId", userId: "yourUserId")
-
-    XCTAssertEqual(defaults.accountId, "yourAccountId")
-    XCTAssertEqual(defaults.userId, "yourUserId")
+    XCTAssertEqual(defaults.accountId, TestConstants.testAccountId)
+    XCTAssertEqual(defaults.userId, TestConstants.testUserId)
   }
 
+  // Testing event tracking mechanism
   func testTrackKeyEvent() {
+    pmfEngine.configure(accountId: TestConstants.testAccountId, userId: TestConstants.testUserId)
+    
     let defaults = (pmfEngine as! PMFEngine).defaults
+    let mockNetworkService = MockPMFNetworkService()
+    (pmfEngine as! PMFEngine).pmfNetworkService = mockNetworkService
 
     pmfEngine.trackKeyEvent("event1")
     pmfEngine.trackKeyEvent("event1")
@@ -43,53 +75,63 @@ class PMFEngineTests: XCTestCase {
 
     XCTAssertEqual(defaults.keyActionsPerformedCount["event1"], 2)
     XCTAssertEqual(defaults.keyActionsPerformedCount["event2"], 1)
+
+    // Asserting trackEvent calls
+    XCTAssertEqual(mockNetworkService.eventsTracked.count, 3)
   }
 
-  func testBuildPMFUrl() {
-    // If accountId and userId are not configured, it should return nil
-    XCTAssertNil(pmfEngine.buildPMFUrl())
-
-    pmfEngine.configure(accountId: "yourAccountId", userId: "yourUserId")
-
-    let url = pmfEngine.buildPMFUrl()
-    XCTAssertEqual(url, URL(string: "https://pmf-engine.com/form/yourAccountId/feedback/:yourUserId/:iOS"))
+  // Testing popup appearance on success
+  func testShowPMFPopup_Success() {
+    setupViewControllerWithCommands(shouldSucceed: true)
+    XCTAssertTrue(isViewControllerPresented(PMFEngineViewController.self))
   }
 
-  func testShouldShowPMFForm() {
-    var defaults = (pmfEngine as! PMFEngine).defaults
-
-    // If registeredDate is nil, it should return false
-    XCTAssertFalse(pmfEngine.shouldShowPMFForm())
-
-    // If registeredDate is within the last two weeks and there are not enough key events, it should return false
-    defaults.registeredDate = Calendar.current.date(byAdding: .day, value: -7, to: Date())
-    XCTAssertFalse(pmfEngine.shouldShowPMFForm())
-
-    // If registeredDate is over two weeks ago but there are not enough key events, it should return false
-    defaults.registeredDate = Calendar.current.date(byAdding: .day, value: -15, to: Date())
-    XCTAssertFalse(pmfEngine.shouldShowPMFForm())
-
-    // If registeredDate is over two weeks ago and there are enough key events, it should return true
-    defaults.keyActionsPerformedCount = ["event1": 3, "event2": 2]
-    XCTAssertTrue(pmfEngine.shouldShowPMFForm())
+  // Testing forced popup appearance
+  func testForceShowPMFPopup_Success() {
+    setupViewControllerWithCommands(shouldSucceed: false, forceShow: true)
+    XCTAssertTrue(isViewControllerPresented(PMFEngineViewController.self))
   }
 
-  func testHasAtLeastTwoKeyEvents() {
-    var defaults = (pmfEngine as! PMFEngine).defaults
+  // Testing popup does not appear on failure
+  func testShowPMFPopup_Failure() {
+    setupViewControllerWithCommands(shouldSucceed: false)
+    XCTAssertFalse(isViewControllerPresented(PMFEngineViewController.self))
+  }
+}
 
-    // If there are less than two key events, it should return false
-    defaults.keyActionsPerformedCount = [:]
-    XCTAssertFalse(pmfEngine.hasAtLeastTwoKeyEvents())
+extension PMFEngineTests {
+  private func setupViewControllerWithCommands(shouldSucceed: Bool, forceShow: Bool = false) {
+    let rootViewController = UIViewController()
+    UIApplication.shared.windows.first?.rootViewController = rootViewController
 
-    defaults.keyActionsPerformedCount = ["event1": 1]
-    XCTAssertFalse(pmfEngine.hasAtLeastTwoKeyEvents())
+    let mockNetworkService = MockPMFNetworkService()
+    mockNetworkService.shouldSucceed = shouldSucceed
+    mockNetworkService.returnedCommands = [PMFNetworkService.CommandEntity(type: "form", url: "https://example.com")]
+    (pmfEngine as! PMFEngine).pmfNetworkService = mockNetworkService
+    pmfEngine.configure(accountId: TestConstants.testAccountId, userId: TestConstants.testUserId)
 
-    // If there are at least two key events, it should return true
-    defaults.keyActionsPerformedCount = ["event1": 2, "event2": 1]
-    XCTAssertTrue(pmfEngine.hasAtLeastTwoKeyEvents())
+    if forceShow {
+      pmfEngine.forceShowPMFPopup(popupView: PMFEnginePopupView(), onViewController: rootViewController)
+    } else {
+      pmfEngine.showPMFPopup(popupView: PMFEnginePopupView(), onViewController: rootViewController)
+    }
+  }
 
-    // If there are more than two key events, it should return true
-    defaults.keyActionsPerformedCount = ["event1": 2, "event2": 1, "event3": 1]
-    XCTAssertTrue(pmfEngine.hasAtLeastTwoKeyEvents())
+  var rootViewController: UIViewController? {
+    return UIApplication.shared.windows.first?.rootViewController
+  }
+
+  func isViewControllerPresented<T: UIViewController>(_ type: T.Type) -> Bool {
+    guard let rootViewController = rootViewController else {
+      return false
+    }
+    return findPresentedViewController(rootViewController) is T
+  }
+
+  private func findPresentedViewController(_ vc: UIViewController) -> UIViewController? {
+    if let presented = vc.presentedViewController {
+      return findPresentedViewController(presented)
+    }
+    return vc
   }
 }

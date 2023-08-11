@@ -9,8 +9,9 @@ import Foundation
 
 // MARK: - PMFNetworkProtocol
 
-protocol PMFNetworkProtocol {
+internal protocol PMFNetworkProtocol {
   func trackEvent(accountId: String, userId: String, eventName: String)
+  func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping PMFNetworkService.CommandsResponseAction)
 }
 
 // MARK: - PMFNetworkService
@@ -18,8 +19,23 @@ protocol PMFNetworkProtocol {
 final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
   
   enum APIConfig {
-    static let baseUrl = "https://us-central1-pmf-engine.cloudfunctions.net"
+    static let baseUrl = URL(string: "https://us-central1-pmf-engine.cloudfunctions.net")!
   }
+
+  // MARK: - HTTP Methods
+
+  enum HTTPMethod: String {
+    case POST
+  }
+
+  // MARK: - API Paths
+
+  enum APIPath: String {
+    case eventRecord = "/eventRecord"
+    case userGetCommand = "/userGetCommand"
+  }
+
+  // MARK: - EventData
 
   struct EventData: Codable {
     let userId: String
@@ -27,31 +43,89 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
     let eventName: String
   }
 
+  // MARK: - UserData
+
+  struct UserData: Codable {
+    let userId: String
+    let accountId: String
+    let userAgent: String
+    let forceShow: Bool
+  }
+
+  // MARK: - CommandResponse
+
+  struct CommandResponse: Codable {
+    let result: CommandResponseResult
+  }
+
+  // MARK: - CommandResponseResult
+
+  struct CommandResponseResult: Codable {
+    let success: Bool
+    let commands: [CommandEntity]?
+  }
+
+  // MARK: - ComandEntity
+
+  struct CommandEntity: Codable {
+    let type: String
+    let url: String
+  }
+
+  typealias CommandsResponseAction = ([CommandEntity]?) -> Void
+
   func trackEvent(accountId: String, userId: String, eventName: String) {
+    struct Response: Codable {
+      let result: Result
+    }
+
+    struct Result: Codable {
+      let success: Bool
+    }
+
     let eventData = EventData(userId: userId, accountId: accountId, eventName: eventName)
 
-    guard let url = URL(string: "\(APIConfig.baseUrl)/eventRecord") else {
-      print("Invalid URL")
+    guard let request = try? configureRequest(with: .eventRecord, body: eventData) else { return }
+
+    dataRequest(urlRequest: request) { result in
+      switch result {
+      case .success(let data):
+        guard let response = try? JSONDecoder().decode(Response.self, from: data), response.result.success else {
+          return
+        }
+        print("[pmf-engine-swift]: Successfully tracked event: \(eventName)")
+      case .failure(let error):
+        print("[pmf-engine-swift]: Failure in tracking event: \(error)")
+      }
+    }
+  }
+
+  func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping CommandsResponseAction) {
+    let userData = UserData(userId: userId, accountId: accountId, userAgent: "ios", forceShow: forceShow)
+
+    guard let request = try? configureRequest(with: .userGetCommand, body: userData) else {
+      completion(nil)
       return
     }
 
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-
-    do {
-      request.httpBody = try JSONEncoder().encode(["data": eventData])
-      request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-
-      dataRequest(urlRequest: request) { result in
-        switch result {
-        case .success:
-          print("Success")
-        case .failure(let error):
-          print("Failure: \(error)")
+    dataRequest(urlRequest: request) { result in
+      switch result {
+      case .success(let data):
+        guard let response = try? JSONDecoder().decode(CommandResponse.self, from: data), response.result.success else {
+          return
         }
+        completion(response.result.commands)
+      case .failure:
+        completion(nil)
       }
-    } catch {
-      print("Error encoding data: \(error)")
     }
+  }
+
+  private func configureRequest<T: Encodable>(with endpoint: APIPath, body: T) throws -> URLRequest {
+    var request = URLRequest(url: APIConfig.baseUrl.appendingPathComponent(endpoint.rawValue))
+    request.httpMethod = HTTPMethod.POST.rawValue
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.httpBody = try JSONEncoder().encode(["data": body])
+    return request
   }
 }

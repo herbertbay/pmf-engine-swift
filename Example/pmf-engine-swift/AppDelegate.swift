@@ -14,11 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   var window: UIWindow?
 
+  private let pmfManager = PMFEngineManager()
+
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
 
-    PMFEngine.default.configure(accountId: "yourAccountIdHere", userId: UUID().uuidString)
-    showPMFPopupIfNeeded()
+    pmfManager.configure()
+    pmfManager.showPopupIfNeeded(on: window?.rootViewController?.topController)
     
     return true
   }
@@ -43,35 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
   func applicationWillTerminate(_ application: UIApplication) {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-  }
-
-  private func showPMFPopupIfNeeded() {
-    let popupView = PMFEnginePopupView()
-
-    popupView.emoji = UIImage(named: "smilling-panda")
-    popupView.title = "Pleeeeease! 🙏\n Help us to improve \nto help others!"
-    popupView.subTitle = "By answering a few simple questions."
-    popupView.confirmTitle = "Yes, happy to help!"
-    popupView.cancelTitle = "No, I don’t want to help!"
-
-    popupView.containerBackgroundColor = UIColor.white
-    popupView.closeButtonTitleColor = UIColor.lightGray
-    popupView.pmfButtonBackgroundColor = UIColor.purple
-    popupView.pmfButtonTitleColor = UIColor.white
-
-    popupView.confirmFont = UIFont.systemFont(
-      ofSize: 17,
-      weight: .bold
-    )
-
-    popupView.cancelFont = UIFont.systemFont(
-      ofSize: 14,
-      weight: .semibold
-    )
-
-    DispatchQueue.main.async {
-      PMFEngine.default.forceShowPMFPopup(popupView: popupView, onViewController: self.window?.rootViewController?.topController)
-    }
   }
 }
 

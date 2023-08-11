@@ -15,6 +15,7 @@
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
 		73CE287C94ED5F21B9F40A36 /* Pods_pmf_engine_swift_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F9DD7F510931D35B724E36A1 /* Pods_pmf_engine_swift_Tests.framework */; };
+		846C35082A8672D200817687 /* PMFEngineManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846C35072A8672D200817687 /* PMFEngineManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 		79129A5FB8F6A7D8C74E8F6C /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		7AAB793F3633A12FF058AEE0 /* Pods-pmf-engine-swift_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pmf-engine-swift_Tests.release.xcconfig"; path = "Target Support Files/Pods-pmf-engine-swift_Tests/Pods-pmf-engine-swift_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		801DF7D98019F86C17DBD5E0 /* Pods-pmf-engine-swift_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pmf-engine-swift_Tests.debug.xcconfig"; path = "Target Support Files/Pods-pmf-engine-swift_Tests/Pods-pmf-engine-swift_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		846C35072A8672D200817687 /* PMFEngineManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFEngineManager.swift; sourceTree = "<group>"; };
 		8BA4F7224322C7B7729D350C /* Pods_pmf_engine_swift_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pmf_engine_swift_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C322EB4393C05E0F140B15A /* Pods-pmf-engine-swift_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-pmf-engine-swift_Example.release.xcconfig"; path = "Target Support Files/Pods-pmf-engine-swift_Example/Pods-pmf-engine-swift_Example.release.xcconfig"; sourceTree = "<group>"; };
 		F9DD7F510931D35B724E36A1 /* Pods_pmf_engine_swift_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_pmf_engine_swift_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -115,6 +117,7 @@
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
 				607FACD71AFB9204008FA782 /* ViewController.swift */,
+				846C35072A8672D200817687 /* PMFEngineManager.swift */,
 				607FACD91AFB9204008FA782 /* Main.storyboard */,
 				607FACDC1AFB9204008FA782 /* Images.xcassets */,
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
@@ -331,6 +334,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				846C35082A8672D200817687 /* PMFEngineManager.swift in Sources */,
 				607FACD81AFB9204008FA782 /* ViewController.swift in Sources */,
 				607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */,
 			);

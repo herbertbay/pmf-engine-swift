@@ -8,7 +8,6 @@
 import Foundation
 
 internal protocol PMFUserDefaultsProtocol {
-  var registeredDate: Date? { get set }
   var accountId: String? { get set }
   var userId: String? { get set }
   var keyActionsPerformedCount: [String: Int] { get set }
@@ -19,7 +18,6 @@ class PMFUserDefaults: PMFUserDefaultsProtocol {
   struct UserDefaultsKeys {
     static let userId = "userId"
     static let accountId = "accountId"
-    static let registeredDate = "registeredDate"
     static let keyActionsPerformedCount = "keyActionsPerformedCount"
   }
 
@@ -53,21 +51,6 @@ class PMFUserDefaults: PMFUserDefaultsProtocol {
       service.setValue(
         newValue,
         forKey: UserDefaultsKeys.accountId
-      )
-    }
-  }
-
-  var registeredDate: Date? {
-    get {
-      service.value(
-        forKey: UserDefaultsKeys.registeredDate
-      ) as? Date
-    }
-
-    set {
-      service.setValue(
-        newValue,
-        forKey: UserDefaultsKeys.registeredDate
       )
     }
   }

@@ -16,29 +16,22 @@ public protocol PMFProtocol {
   func forceShowPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?)
 }
 
-// MARK: - PMFEngineExtendedProtocol
+// MARK: - PMFProtocol
 
-internal protocol PMFEngineExtendedProtocol: PMFProtocol {
-  func hasAtLeastTwoKeyEvents() -> Bool
-  func shouldShowPMFForm() -> Bool
-  func buildPMFUrl() -> URL?
-}
-
-// MARK: - PMFEngineExtendedProtocol
-
-public final class PMFEngine: PMFEngineExtendedProtocol {
+public final class PMFEngine: PMFProtocol {
 
   public static let `default` = PMFEngine()
 
-  internal var defaults: PMFUserDefaultsProtocol = PMFUserDefaults()
-  internal let pmfNetworkService = PMFNetworkService()
+  internal var defaults: PMFUserDefaultsProtocol
+  internal var pmfNetworkService: PMFNetworkProtocol
 
-  init(defaults: PMFUserDefaultsProtocol = PMFUserDefaults()) {
+  init(defaults: PMFUserDefaultsProtocol = PMFUserDefaults(),
+       networkService: PMFNetworkProtocol = PMFNetworkService()) {
     self.defaults = defaults
+    self.pmfNetworkService = networkService
   }
 
   public func configure(accountId: String, userId: String) {
-    defaults.registeredDate = Date()
     defaults.accountId = accountId
     defaults.userId = userId
   }
@@ -59,37 +52,22 @@ public final class PMFEngine: PMFEngineExtendedProtocol {
     pmfNetworkService.trackEvent(accountId: accountId, userId: userId, eventName: name)
   }
 
-  public func buildPMFUrl() -> URL? {
-    guard let accountId = defaults.accountId, let userId = defaults.userId else { return nil }
-    let url = "https://pmf-engine.com/form/\(accountId)/feedback/:\(userId)/:iOS"
-    return URL(string: url)
-  }
-
   public func showPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?) {
-    guard let url = buildPMFUrl(), shouldShowPMFForm() else { return }
-
-    showPopup(url: url, popupView: popupView, onViewController: onViewController)
+    showFormPopupIfNeeded(forceShow: false, popupView: popupView, onViewController: onViewController)
   }
 
   public func forceShowPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?) {
-    guard let url = buildPMFUrl() else { return }
-
-    showPopup(url: url, popupView: popupView, onViewController: onViewController)
+    showFormPopupIfNeeded(forceShow: true, popupView: popupView, onViewController: onViewController)
   }
 
-  internal func shouldShowPMFForm() -> Bool {
-    guard let registeredDate = defaults.registeredDate else {
-      return false
+  internal func showFormPopupIfNeeded(forceShow: Bool, popupView: PMFEnginePopupView, onViewController: UIViewController?) {
+    guard let accountId = defaults.accountId, let userId = defaults.userId else { return }
+
+    pmfNetworkService.getFormActions(forceShow: forceShow, accountId: accountId, userId: userId) { [weak self] commands in
+      guard let command = commands?.first(where: { $0.type == "form" }), let url = URL(string: command.url) else { return }
+
+      self?.showPopup(url: url, popupView: popupView, onViewController: onViewController)
     }
-
-    let twoWeeksAgoDate = Calendar.current.date(byAdding: .day, value: -14, to: Date()) ?? Date()
-    let isDateAfterTwoWeeks = registeredDate < twoWeeksAgoDate
-
-    return hasAtLeastTwoKeyEvents() && isDateAfterTwoWeeks
-  }
-
-  internal func hasAtLeastTwoKeyEvents() -> Bool {
-    defaults.keyActionsPerformedCount.values.reduce(0, +) > 2
   }
 
   internal func showPopup(url: URL, popupView: PMFEnginePopupView, onViewController: UIViewController?) {

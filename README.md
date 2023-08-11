@@ -34,7 +34,7 @@ pod 'pmf-engine-swift'
 ##### 2. Configure with your accountId and userId in the `didFinishLaunchingWithOptions`
 
 ```Swift
-    PMFEngine.default.configure(accountId: "accountID", userId: UUID().uuidString)
+  PMFEngine.default.configure(accountId: "accountID", userId: UUID().uuidString)
 ``` 
 
 ##### 3. Track Event

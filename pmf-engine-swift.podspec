@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'pmf-engine-swift'
   s.version          = '0.1.0'
-  s.summary          = 'PDF Engine Swift: Collect valuable user feedback through interactive questions after a two-week usage and tracking of two key events.'
+  s.summary          = 'PMF Engine Swift: Collect valuable user feedback through interactive questions after a two-week usage and tracking of two key events.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-'PDF Engine Swift is an iOS framework that empowers developers to seamlessly integrate interactive question prompts for valuable user feedback, ensuring two weeks of app usage and tracking at least two key events to ensure meaningful insights and engagement.'
+'PMF Engine Swift is an iOS framework that empowers developers to seamlessly integrate interactive question prompts for valuable user feedback, ensuring two weeks of app usage and tracking at least two key events to ensure meaningful insights and engagement.'
                        DESC
 
   s.homepage         = 'https://github.com/herbertbay/pmf-engine-swift'

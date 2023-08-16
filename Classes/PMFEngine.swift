@@ -25,6 +25,8 @@ public final class PMFEngine: PMFProtocol {
   internal var defaults: PMFUserDefaultsProtocol
   internal var pmfNetworkService: PMFNetworkProtocol
 
+  typealias Action = () -> Void
+
   init(defaults: PMFUserDefaultsProtocol = PMFUserDefaults(),
        networkService: PMFNetworkProtocol = PMFNetworkService()) {
     self.defaults = defaults
@@ -71,9 +73,15 @@ public final class PMFEngine: PMFProtocol {
   }
 
   internal func showPopup(url: URL, popupView: PMFEnginePopupView, onViewController: UIViewController?) {
+    guard let accountId = defaults.accountId, let userId = defaults.userId else { return }
+
     let pmfAlertVC = PMFEngineViewController(
       contentView: popupView
     )
+
+    let formShowingCompletion: Action = { [weak self] in
+      self?.pmfNetworkService.trackFormShowing(accountId: accountId, userId: userId)
+    }
 
     popupView.pressedShowButton = {
       UIApplication.shared.open(url, options: [:])
@@ -84,6 +92,6 @@ public final class PMFEngine: PMFProtocol {
     }
 
     pmfAlertVC.modalPresentationStyle = .overFullScreen
-    onViewController?.present(pmfAlertVC, animated: false)
+    onViewController?.present(pmfAlertVC, animated: false, completion: formShowingCompletion)
   }
 }

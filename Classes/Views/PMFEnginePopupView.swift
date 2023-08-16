@@ -60,6 +60,18 @@ public class PMFEnginePopupView: UIView {
     }
   }
 
+  public var titleTextColor: UIColor? {
+    didSet {
+      titleLabel.textColor = titleTextColor
+    }
+  }
+
+  public var subtitleTextColor: UIColor? {
+    didSet {
+      subtitleLabel.textColor = subtitleTextColor
+    }
+  }
+
   public var pmfButtonTitleColor: UIColor? {
     didSet {
       showPMFButton.setTitleColor(pmfButtonTitleColor, for: .normal)

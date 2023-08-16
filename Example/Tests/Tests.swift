@@ -24,6 +24,8 @@ class MockPMFNetworkService: PMFNetworkProtocol {
   var returnedCommands: [PMFNetworkService.CommandEntity]? = nil
   var eventsTracked: [(accountId: String, userId: String, eventName: String)] = []
 
+  func trackFormShowing(accountId: String, userId: String) {}
+  
   func trackEvent(accountId: String, userId: String, eventName: String) {
     eventsTracked.append((accountId, userId, eventName))
   }

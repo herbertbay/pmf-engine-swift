@@ -12,6 +12,7 @@ import Foundation
 internal protocol PMFNetworkProtocol {
   func trackEvent(accountId: String, userId: String, eventName: String)
   func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping PMFNetworkService.CommandsResponseAction)
+  func trackFormShowing(accountId: String, userId: String)
 }
 
 // MARK: - PMFNetworkService
@@ -119,6 +120,10 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
         completion(nil)
       }
     }
+  }
+
+  func trackFormShowing(accountId: String, userId: String) {
+    trackEvent(accountId: accountId, userId: userId, eventName: "feedback-form-shown")
   }
 
   private func configureRequest<T: Encodable>(with endpoint: APIPath, body: T) throws -> URLRequest {

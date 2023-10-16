@@ -12,8 +12,22 @@ import UIKit
 public protocol PMFProtocol {
   func configure(accountId: String, userId: String)
   func trackKeyEvent(_ name: String)
-  func showPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?)
-  func forceShowPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?)
+  func showPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?)
+  func forceShowPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?)
+}
+
+public extension PMFProtocol {
+  func trackKeyEvent(_ name: String? = nil) {
+    trackKeyEvent("")
+  }
+
+  func showPMFPopup(for eventName: String? = nil, popupView: PMFEnginePopupView? = nil, onViewController: UIViewController? = nil) {
+    showPMFPopup(for: eventName, popupView: popupView, onViewController: onViewController)
+  }
+
+  func forceShowPMFPopup(for eventName: String? = nil, popupView: PMFEnginePopupView? = nil, onViewController: UIViewController? = nil) {
+    forceShowPMFPopup(for: eventName, popupView: popupView, onViewController: onViewController)
+  }
 }
 
 // MARK: - PMFProtocol
@@ -39,12 +53,13 @@ public final class PMFEngine: PMFProtocol {
   }
 
   public func trackKeyEvent(_ name: String) {
+    let eventName = name.isEmpty ? "default" : name
     var newActions = defaults.keyActionsPerformedCount
 
-    if let count = newActions[name] {
-      newActions[name] = count + 1
+    if let count = newActions[eventName] {
+      newActions[eventName] = count + 1
     } else {
-      newActions[name] = 1
+      newActions[eventName] = 1
     }
 
     defaults.keyActionsPerformedCount = newActions
@@ -54,26 +69,32 @@ public final class PMFEngine: PMFProtocol {
     pmfNetworkService.trackEvent(accountId: accountId, userId: userId, eventName: name)
   }
 
-  public func showPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?) {
-    showFormPopupIfNeeded(forceShow: false, popupView: popupView, onViewController: onViewController)
+  public func showPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
+    showFormPopupIfNeeded(for: eventName, forceShow: false, popupView: popupView, onViewController: onViewController)
   }
 
-  public func forceShowPMFPopup(popupView: PMFEnginePopupView, onViewController: UIViewController?) {
-    showFormPopupIfNeeded(forceShow: true, popupView: popupView, onViewController: onViewController)
+  public func forceShowPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
+    showFormPopupIfNeeded(for: eventName, forceShow: true, popupView: popupView, onViewController: onViewController)
   }
 
-  internal func showFormPopupIfNeeded(forceShow: Bool, popupView: PMFEnginePopupView, onViewController: UIViewController?) {
+  internal func showFormPopupIfNeeded(for eventName: String?, forceShow: Bool, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
     guard let accountId = defaults.accountId, let userId = defaults.userId else { return }
 
-    pmfNetworkService.getFormActions(forceShow: forceShow, accountId: accountId, userId: userId) { [weak self] commands in
+    pmfNetworkService.getFormActions(forceShow: forceShow, accountId: accountId, userId: userId, for: eventName) { [weak self] commands in
+
       guard let command = commands?.first(where: { $0.type == "form" }), let url = URL(string: command.url) else { return }
 
       self?.showPopup(url: url, popupView: popupView, onViewController: onViewController)
     }
   }
 
-  internal func showPopup(url: URL, popupView: PMFEnginePopupView, onViewController: UIViewController?) {
+  internal func showPopup(url: URL, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
     guard let accountId = defaults.accountId, let userId = defaults.userId else { return }
+
+    guard let popupView = popupView else {
+      UIApplication.shared.open(url, options: [:])
+      return
+    }
 
     let pmfAlertVC = PMFEngineViewController(
       contentView: popupView
@@ -92,6 +113,8 @@ public final class PMFEngine: PMFProtocol {
     }
 
     pmfAlertVC.modalPresentationStyle = .overFullScreen
-    onViewController?.present(pmfAlertVC, animated: false, completion: formShowingCompletion)
+
+    let viewController = onViewController ?? UIApplication.shared.windows.first?.rootViewController
+    viewController?.present(pmfAlertVC, animated: false, completion: formShowingCompletion)
   }
 }

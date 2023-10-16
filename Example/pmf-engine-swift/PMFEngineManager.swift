@@ -17,10 +17,16 @@ class PMFEngineManager {
     PMFEngine.default.configure(accountId: accountId, userId: userId)
   }
 
-  func showPopupIfNeeded(on viewController: UIViewController?) {
+  func showPopupWithViewIfNeeded(on viewController: UIViewController?) {
     let popupView = createPMFPopupView()
     DispatchQueue.main.async {
       PMFEngine.default.showPMFPopup(popupView: popupView, onViewController: viewController)
+    }
+  }
+
+  func showPopupIfNeeded() {
+    DispatchQueue.main.async {
+      PMFEngine.default.showPMFPopup()
     }
   }
 

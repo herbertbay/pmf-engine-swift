@@ -16,7 +16,7 @@ class ViewController: UIViewController {
     // Do any additional setup after loading the view, typically from a nib.
 
     PMFEngine.default.trackKeyEvent("journal")
-    PMFEngine.default.trackKeyEvent("journal")
+    PMFEngine.default.trackKeyEvent()
   }
 
   override func viewDidAppear(_ animated: Bool) {

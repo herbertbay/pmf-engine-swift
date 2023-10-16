@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
 
     pmfManager.configure()
-    pmfManager.showPopupIfNeeded(on: window?.rootViewController?.topController)
+    pmfManager.showPopupIfNeeded()
     
     return true
   }

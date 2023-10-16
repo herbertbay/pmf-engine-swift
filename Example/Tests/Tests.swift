@@ -30,7 +30,7 @@ class MockPMFNetworkService: PMFNetworkProtocol {
     eventsTracked.append((accountId, userId, eventName))
   }
 
-  func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping ([PMFNetworkService.CommandEntity]?) -> Void) {
+  func getFormActions(forceShow: Bool, accountId: String, userId: String, for eventName: String?, completion: @escaping ([PMFNetworkService.CommandEntity]?) -> Void) {
     if shouldSucceed || forceShow {
       completion(returnedCommands)
     } else {
@@ -74,12 +74,14 @@ class PMFEngineTests: XCTestCase {
     pmfEngine.trackKeyEvent("event1")
     pmfEngine.trackKeyEvent("event1")
     pmfEngine.trackKeyEvent("event2")
+    pmfEngine.trackKeyEvent("")
 
     XCTAssertEqual(defaults.keyActionsPerformedCount["event1"], 2)
     XCTAssertEqual(defaults.keyActionsPerformedCount["event2"], 1)
+    XCTAssertEqual(defaults.keyActionsPerformedCount["default"], 1)
 
     // Asserting trackEvent calls
-    XCTAssertEqual(mockNetworkService.eventsTracked.count, 3)
+    XCTAssertEqual(mockNetworkService.eventsTracked.count, 4)
   }
 
   // Testing popup appearance on success

@@ -11,7 +11,7 @@ import Foundation
 
 internal protocol PMFNetworkProtocol {
   func trackEvent(accountId: String, userId: String, eventName: String)
-  func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping PMFNetworkService.CommandsResponseAction)
+  func getFormActions(forceShow: Bool, accountId: String, userId: String, for eventName: String?, completion: @escaping PMFNetworkService.CommandsResponseAction)
   func trackFormShowing(accountId: String, userId: String)
 }
 
@@ -41,7 +41,7 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
   struct EventData: Codable {
     let userId: String
     let accountId: String
-    let eventName: String
+    let eventName: String?
   }
 
   // MARK: - UserData
@@ -51,6 +51,7 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
     let accountId: String
     let userAgent: String
     let forceShow: Bool
+    let eventName: String?
   }
 
   // MARK: - CommandResponse
@@ -94,15 +95,15 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
         guard let response = try? JSONDecoder().decode(Response.self, from: data), response.result.success else {
           return
         }
-        print("[pmf-engine-swift]: Successfully tracked event: \(eventName)")
+        print("[pmf-engine-swift]: Successfully tracked event\(eventName.isEmpty ? "" : ": " + eventName)")
       case .failure(let error):
         print("[pmf-engine-swift]: Failure in tracking event: \(error)")
       }
     }
   }
 
-  func getFormActions(forceShow: Bool, accountId: String, userId: String, completion: @escaping CommandsResponseAction) {
-    let userData = UserData(userId: userId, accountId: accountId, userAgent: "ios", forceShow: forceShow)
+  func getFormActions(forceShow: Bool, accountId: String, userId: String, for eventName: String?, completion: @escaping CommandsResponseAction) {
+    let userData = UserData(userId: userId, accountId: accountId, userAgent: "ios", forceShow: forceShow, eventName: eventName)
 
     guard let request = try? configureRequest(with: .userGetCommand, body: userData) else {
       completion(nil)

@@ -74,10 +74,10 @@ To show the form directly from the top controller:
   PMFEngine.default.showPMFPopup()
 ```
 
-To use a custom popup view and a specific view controller:
+To use a custom event name, custom popup view and a specific view controller:
 
 ```Swift
-  PMFEngine.default.showPMFPopup(popupView: popupView, onViewController: viewController)
+  PMFEngine.default.showPMFPopup(for: "journal", popupView: popupView, onViewController: viewController)
 ```
 
 ## License

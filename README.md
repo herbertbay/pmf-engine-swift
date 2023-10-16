@@ -28,22 +28,29 @@ pod 'pmf-engine-swift'
 
 ### Configuration
 
-##### 1. First you should 
+##### 1. To get started, import the pmf_engine_swift library into your project.
     import pmf_engine_swift
 
-##### 2. Configure with your accountId and userId in the `didFinishLaunchingWithOptions`
+##### 2. In your AppDelegate's `didFinishLaunchingWithOptions` method, configure the PMF Engine with your `accountId` and a unique `userId`.
 
 ```Swift
   PMFEngine.default.configure(accountId: "accountID", userId: UUID().uuidString)
 ``` 
 
-##### 3. Track Event
+##### 3. Track Events
+
+Use the PMF Engine to track events within your application. You can either use a default event or specify a custom event.
+
+```Swift
+  PMFEngine.default.trackKeyEvent() // Track a default event
+  PMFEngine.default.trackKeyEvent("journal") // Track a custom event
+``` 
 
 ```Swift
   PMFEngine.default.trackKeyEvent("journal")
 ``` 
 
-##### 4. Customise View
+##### 4. Customize the Feedback Popup (Optional)
 
 ```Swift
   let popupView = PMFEnginePopupView()
@@ -63,10 +70,19 @@ pod 'pmf-engine-swift'
   popupView.cancelFont = UIFont.systemFont(ofSize: 14, weight: .semibold)
 ``` 
 
-##### 5. Show Popup If Needed
+##### 5. Show the Feedback Popup
+
+To show the form directly from the top controller:
 
 ```Swift
-  PMFEngine.default.showPMFPopup(popupView: popupView, onViewController: topController)
+  // if you want to show form directly from the top controller
+  PMFEngine.default.showPMFPopup()
+```
+
+To use a custom popup view and a specific view controller:
+
+```Swift
+  PMFEngine.default.showPMFPopup(popupView: popupView, onViewController: viewController)
 ```
 
 ## License

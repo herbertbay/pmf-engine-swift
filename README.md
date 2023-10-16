@@ -46,10 +46,6 @@ Use the PMF Engine to track events within your application. You can either use a
   PMFEngine.default.trackKeyEvent("journal") // Track a custom event
 ``` 
 
-```Swift
-  PMFEngine.default.trackKeyEvent("journal")
-``` 
-
 ##### 4. Customize the Feedback Popup (Optional)
 
 ```Swift
@@ -75,7 +71,6 @@ Use the PMF Engine to track events within your application. You can either use a
 To show the form directly from the top controller:
 
 ```Swift
-  // if you want to show form directly from the top controller
   PMFEngine.default.showPMFPopup()
 ```
 

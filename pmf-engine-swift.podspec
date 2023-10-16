@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'pmf-engine-swift'
-  s.version          = '0.2.0'
+  s.version          = '0.2.1'
   s.summary          = 'PMF Engine Swift: Collect valuable user feedback through interactive questions after a two-week usage and tracking of two key events.'
 
 # This description is used to generate tags and improve search results.

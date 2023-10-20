@@ -110,7 +110,7 @@ extension PMFEngineTests {
 
     let mockNetworkService = MockPMFNetworkService()
     mockNetworkService.shouldSucceed = shouldSucceed
-    mockNetworkService.returnedCommands = [PMFNetworkService.CommandEntity(type: "form", url: "https://example.com")]
+    mockNetworkService.returnedCommands = [PMFNetworkService.CommandEntity(type: "form", url: "https://example.com", formData: nil)]
     (pmfEngine as! PMFEngine).pmfNetworkService = mockNetworkService
     pmfEngine.configure(accountId: TestConstants.testAccountId, userId: TestConstants.testUserId)
 

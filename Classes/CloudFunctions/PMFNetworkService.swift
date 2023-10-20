@@ -72,6 +72,18 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
   struct CommandEntity: Codable {
     let type: String
     let url: String
+    let formData: FormData?
+  }
+
+  struct FormData: Codable {
+    let colors: ColorData?
+  }
+
+  struct ColorData: Codable {
+    let background: String?
+    let text: String?
+    let brandLight: String?
+    let brand: String?
   }
 
   typealias CommandsResponseAction = ([CommandEntity]?) -> Void

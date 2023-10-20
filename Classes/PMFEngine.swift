@@ -84,15 +84,17 @@ public final class PMFEngine: PMFProtocol {
 
       guard let command = commands?.first(where: { $0.type == "form" }), let url = URL(string: command.url) else { return }
 
-      self?.showPopup(url: url, popupView: popupView, onViewController: onViewController)
+      self?.showPopup(url: url, popupView: popupView, bgColor: command.formData?.colors?.background, onViewController: onViewController)
     }
   }
 
-  internal func showPopup(url: URL, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
+  internal func showPopup(url: URL, popupView: PMFEnginePopupView?, bgColor: String?, onViewController: UIViewController?) {
     guard let accountId = defaults.accountId, let userId = defaults.userId else { return }
 
+    let viewController = onViewController ?? UIApplication.shared.windows.first?.rootViewController
+
     guard let popupView = popupView else {
-      UIApplication.shared.open(url, options: [:])
+      showWebController(withURL: url, bgColor: bgColor, viewController: viewController)
       return
     }
 
@@ -104,8 +106,8 @@ public final class PMFEngine: PMFProtocol {
       self?.pmfNetworkService.trackFormShowing(accountId: accountId, userId: userId)
     }
 
-    popupView.pressedShowButton = {
-      UIApplication.shared.open(url, options: [:])
+    popupView.pressedShowButton = { [weak self] in
+      self?.showWebController(withURL: url, bgColor: bgColor, viewController: pmfAlertVC)
     }
 
     popupView.cancelCompletion = {
@@ -114,7 +116,11 @@ public final class PMFEngine: PMFProtocol {
 
     pmfAlertVC.modalPresentationStyle = .overFullScreen
 
-    let viewController = onViewController ?? UIApplication.shared.windows.first?.rootViewController
     viewController?.present(pmfAlertVC, animated: false, completion: formShowingCompletion)
+  }
+
+  internal func showWebController(withURL url: URL, bgColor: String?, viewController: UIViewController?) {
+    let webPageViewController = WebViewController(url: url, bgColor: bgColor)
+    viewController?.present(webPageViewController, animated: true, completion: nil)
   }
 }

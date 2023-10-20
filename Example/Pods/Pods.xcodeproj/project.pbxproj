@@ -19,6 +19,9 @@
 		84B4A3CB2A728ECD0072B1F8 /* UIView+Constraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3CA2A728ECD0072B1F8 /* UIView+Constraints.swift */; };
 		84B4A3CD2A72902D0072B1F8 /* UIStackView+Layout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3CC2A72902D0072B1F8 /* UIStackView+Layout.swift */; };
 		84B4A3CF2A72C5A00072B1F8 /* UIViewController+Top.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B4A3CE2A72C5A00072B1F8 /* UIViewController+Top.swift */; };
+		84D811FE2AE17EFC006FAF61 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D811FD2AE17EFC006FAF61 /* WebViewController.swift */; };
+		84D812002AE17FAD006FAF61 /* WebContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D811FF2AE17FAD006FAF61 /* WebContentView.swift */; };
+		84D812022AE265FC006FAF61 /* UIColor+Hex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D812012AE265FC006FAF61 /* UIColor+Hex.swift */; };
 		84EBA0E92A711D9B009F817B /* PMFEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBA0E82A711D9B009F817B /* PMFEngine.swift */; };
 		84EBA0EC2A712392009F817B /* PMFUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EBA0EB2A712392009F817B /* PMFUserDefaults.swift */; };
 		AA8571990F873B09809AE824478BC910 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73010CC983E3809BECEE5348DA1BB8C6 /* Foundation.framework */; };
@@ -68,6 +71,9 @@
 		84B4A3CA2A728ECD0072B1F8 /* UIView+Constraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Constraints.swift"; sourceTree = "<group>"; };
 		84B4A3CC2A72902D0072B1F8 /* UIStackView+Layout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+Layout.swift"; sourceTree = "<group>"; };
 		84B4A3CE2A72C5A00072B1F8 /* UIViewController+Top.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Top.swift"; sourceTree = "<group>"; };
+		84D811FD2AE17EFC006FAF61 /* WebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		84D811FF2AE17FAD006FAF61 /* WebContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebContentView.swift; sourceTree = "<group>"; };
+		84D812012AE265FC006FAF61 /* UIColor+Hex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Hex.swift"; sourceTree = "<group>"; };
 		84EBA0E82A711D9B009F817B /* PMFEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFEngine.swift; sourceTree = "<group>"; };
 		84EBA0EB2A712392009F817B /* PMFUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PMFUserDefaults.swift; sourceTree = "<group>"; };
 		8CE870FE75B29AE5A84D364B2CDC599E /* Pods-pmf-engine-swift_Tests-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-pmf-engine-swift_Tests-Info.plist"; sourceTree = "<group>"; };
@@ -200,6 +206,7 @@
 		84B4A3C22A7285130072B1F8 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				84D811FC2AE17EE5006FAF61 /* WebViewController */,
 				84B4A3C92A728EB20072B1F8 /* Helpers */,
 				84B4A3C32A72852E0072B1F8 /* PMFEnginePopupView.swift */,
 				84B4A3C52A728A8B0072B1F8 /* PMFEngineViewController.swift */,
@@ -213,8 +220,18 @@
 				84B4A3CA2A728ECD0072B1F8 /* UIView+Constraints.swift */,
 				84B4A3CC2A72902D0072B1F8 /* UIStackView+Layout.swift */,
 				84B4A3CE2A72C5A00072B1F8 /* UIViewController+Top.swift */,
+				84D812012AE265FC006FAF61 /* UIColor+Hex.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		84D811FC2AE17EE5006FAF61 /* WebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				84D811FD2AE17EFC006FAF61 /* WebViewController.swift */,
+				84D811FF2AE17FAD006FAF61 /* WebContentView.swift */,
+			);
+			path = WebViewController;
 			sourceTree = "<group>";
 		};
 		84EBA0E72A701F6D009F817B /* Classes */ = {
@@ -454,12 +471,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B5350CC43F8FDABB48E58B7AC192AD4 /* pmf-engine-swift-dummy.m in Sources */,
+				84D811FE2AE17EFC006FAF61 /* WebViewController.swift in Sources */,
 				84B4A3BF2A712F1B0072B1F8 /* BaseNetworkService.swift in Sources */,
 				84B4A3CF2A72C5A00072B1F8 /* UIViewController+Top.swift in Sources */,
 				84EBA0EC2A712392009F817B /* PMFUserDefaults.swift in Sources */,
 				84B4A3C42A72852E0072B1F8 /* PMFEnginePopupView.swift in Sources */,
 				84EBA0E92A711D9B009F817B /* PMFEngine.swift in Sources */,
+				84D812002AE17FAD006FAF61 /* WebContentView.swift in Sources */,
 				84B4A3CD2A72902D0072B1F8 /* UIStackView+Layout.swift in Sources */,
+				84D812022AE265FC006FAF61 /* UIColor+Hex.swift in Sources */,
 				84B4A3C62A728A8B0072B1F8 /* PMFEngineViewController.swift in Sources */,
 				84B4A3C12A712FCE0072B1F8 /* PMFNetworkService.swift in Sources */,
 				84B4A3CB2A728ECD0072B1F8 /* UIView+Constraints.swift in Sources */,

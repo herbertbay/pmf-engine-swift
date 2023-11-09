@@ -30,8 +30,8 @@ class MockPMFNetworkService: PMFNetworkProtocol {
     eventsTracked.append((accountId, userId, eventName))
   }
 
-  func getFormActions(forceShow: Bool, accountId: String, userId: String, for eventName: String?, completion: @escaping ([PMFNetworkService.CommandEntity]?) -> Void) {
-    if shouldSucceed || forceShow {
+  func getFormActions(accountId: String, userId: String, for eventName: String?, completion: @escaping ([PMFNetworkService.CommandEntity]?) -> Void) {
+    if shouldSucceed {
       completion(returnedCommands)
     } else {
       completion(nil)
@@ -90,12 +90,6 @@ class PMFEngineTests: XCTestCase {
     XCTAssertTrue(isViewControllerPresented(PMFEngineViewController.self))
   }
 
-  // Testing forced popup appearance
-  func testForceShowPMFPopup_Success() {
-    setupViewControllerWithCommands(shouldSucceed: false, forceShow: true)
-    XCTAssertTrue(isViewControllerPresented(PMFEngineViewController.self))
-  }
-
   // Testing popup does not appear on failure
   func testShowPMFPopup_Failure() {
     setupViewControllerWithCommands(shouldSucceed: false)
@@ -104,7 +98,7 @@ class PMFEngineTests: XCTestCase {
 }
 
 extension PMFEngineTests {
-  private func setupViewControllerWithCommands(shouldSucceed: Bool, forceShow: Bool = false) {
+  private func setupViewControllerWithCommands(shouldSucceed: Bool) {
     let rootViewController = UIViewController()
     UIApplication.shared.windows.first?.rootViewController = rootViewController
 
@@ -114,11 +108,7 @@ extension PMFEngineTests {
     (pmfEngine as! PMFEngine).pmfNetworkService = mockNetworkService
     pmfEngine.configure(accountId: TestConstants.testAccountId, userId: TestConstants.testUserId)
 
-    if forceShow {
-      pmfEngine.forceShowPMFPopup(popupView: PMFEnginePopupView(), onViewController: rootViewController)
-    } else {
-      pmfEngine.showPMFPopup(popupView: PMFEnginePopupView(), onViewController: rootViewController)
-    }
+    pmfEngine.showPMFPopup(popupView: PMFEnginePopupView(), onViewController: rootViewController)
   }
 
   var rootViewController: UIViewController? {

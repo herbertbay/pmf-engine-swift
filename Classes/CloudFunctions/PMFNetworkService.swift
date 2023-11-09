@@ -11,7 +11,7 @@ import Foundation
 
 internal protocol PMFNetworkProtocol {
   func trackEvent(accountId: String, userId: String, eventName: String)
-  func getFormActions(forceShow: Bool, accountId: String, userId: String, for eventName: String?, completion: @escaping PMFNetworkService.CommandsResponseAction)
+  func getFormActions(accountId: String, userId: String, for eventName: String?, completion: @escaping PMFNetworkService.CommandsResponseAction)
   func trackFormShowing(accountId: String, userId: String)
 }
 
@@ -50,7 +50,6 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
     let userId: String
     let accountId: String
     let userAgent: String
-    let forceShow: Bool
     let eventName: String?
   }
 
@@ -114,8 +113,8 @@ final class PMFNetworkService: BaseNetworkService, PMFNetworkProtocol {
     }
   }
 
-  func getFormActions(forceShow: Bool, accountId: String, userId: String, for eventName: String?, completion: @escaping CommandsResponseAction) {
-    let userData = UserData(userId: userId, accountId: accountId, userAgent: "ios", forceShow: forceShow, eventName: eventName)
+  func getFormActions(accountId: String, userId: String, for eventName: String?, completion: @escaping CommandsResponseAction) {
+    let userData = UserData(userId: userId, accountId: accountId, userAgent: "ios", eventName: eventName)
 
     guard let request = try? configureRequest(with: .userGetCommand, body: userData) else {
       completion(nil)

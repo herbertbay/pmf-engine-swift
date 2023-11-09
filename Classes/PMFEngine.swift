@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import WebKit
 
 // MARK: - PMFProtocol
 
@@ -13,7 +14,6 @@ public protocol PMFProtocol {
   func configure(accountId: String, userId: String)
   func trackKeyEvent(_ name: String)
   func showPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?)
-  func forceShowPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?)
 }
 
 public extension PMFProtocol {
@@ -24,20 +24,17 @@ public extension PMFProtocol {
   func showPMFPopup(for eventName: String? = nil, popupView: PMFEnginePopupView? = nil, onViewController: UIViewController? = nil) {
     showPMFPopup(for: eventName, popupView: popupView, onViewController: onViewController)
   }
-
-  func forceShowPMFPopup(for eventName: String? = nil, popupView: PMFEnginePopupView? = nil, onViewController: UIViewController? = nil) {
-    forceShowPMFPopup(for: eventName, popupView: popupView, onViewController: onViewController)
-  }
 }
 
 // MARK: - PMFProtocol
 
-public final class PMFEngine: PMFProtocol {
+public final class PMFEngine: NSObject, PMFProtocol {
 
   public static let `default` = PMFEngine()
 
   internal var defaults: PMFUserDefaultsProtocol
   internal var pmfNetworkService: PMFNetworkProtocol
+  internal var openController: Action?
 
   typealias Action = () -> Void
 
@@ -70,21 +67,15 @@ public final class PMFEngine: PMFProtocol {
   }
 
   public func showPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
-    showFormPopupIfNeeded(for: eventName, forceShow: false, popupView: popupView, onViewController: onViewController)
+    showFormPopupIfNeeded(for: eventName, popupView: popupView, onViewController: onViewController)
   }
 
-  public func forceShowPMFPopup(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
-    showFormPopupIfNeeded(for: eventName, forceShow: true, popupView: popupView, onViewController: onViewController)
-  }
-
-  internal func showFormPopupIfNeeded(for eventName: String?, forceShow: Bool, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
+  internal func showFormPopupIfNeeded(for eventName: String?, popupView: PMFEnginePopupView?, onViewController: UIViewController?) {
     guard let accountId = defaults.accountId, let userId = defaults.userId else { return }
 
-    pmfNetworkService.getFormActions(forceShow: forceShow, accountId: accountId, userId: userId, for: eventName) { [weak self] commands in
-
+    pmfNetworkService.getFormActions(accountId: accountId, userId: userId, for: eventName) { [weak self] commands in
       guard let command = commands?.first(where: { $0.type == "form" }), let url = URL(string: command.url) else { return }
-
-      self?.showPopup(url: url, popupView: popupView, bgColor: command.formData?.colors?.background, onViewController: onViewController)
+      self?.showPopup(url: url, popupView: popupView, bgColor: "FFFFFF", onViewController: onViewController)
     }
   }
 
@@ -120,7 +111,29 @@ public final class PMFEngine: PMFProtocol {
   }
 
   internal func showWebController(withURL url: URL, bgColor: String?, viewController: UIViewController?) {
-    let webPageViewController = WebViewController(url: url, bgColor: bgColor)
-    viewController?.present(webPageViewController, animated: true, completion: nil)
+    let webView = WKWebView(frame: .zero)
+    let request = URLRequest(url: url)
+    let webViewTag = 123
+
+    webView.navigationDelegate = self
+    webView.load(request)
+    webView.tag = webViewTag
+    viewController?.view.addSubview(webView)
+
+    openController = {
+      let webPageViewController = WebViewController(webView: webView, bgColor: bgColor)
+      viewController?.view.subviews.filter { $0.tag == webViewTag }.forEach { $0.removeFromSuperview() }
+      viewController?.present(webPageViewController, animated: true, completion: nil)
+    }
+  }
+}
+
+// MARK: - WKNavigationDelegate
+
+extension PMFEngine: WKNavigationDelegate {
+  public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
+      self.openController?()
+    }
   }
 }

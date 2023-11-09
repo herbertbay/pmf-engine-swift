@@ -10,14 +10,13 @@ import WebKit
 
 class WebViewController: UIViewController {
 
-  private var url: URL!
   private var bgColor: UIColor!
-  private let contentView = WebPageContentView()
+  private var contentView: WebPageContentView?
 
-  convenience init(url: URL, bgColor: String?) {
+  convenience init(webView: WKWebView, bgColor: String?) {
     self.init(nibName: nil, bundle: nil)
-    self.url = url
     self.bgColor = UIColor.hex(bgColor ?? "#FFFFFF")
+    self.contentView = WebPageContentView(webView: webView)
   }
 
   override func viewDidLoad() {
@@ -26,6 +25,8 @@ class WebViewController: UIViewController {
   }
 
   private func setupContentView() {
+    guard let contentView = contentView else { return }
+
     view.addSubview(contentView)
     view.backgroundColor = bgColor
 
@@ -37,7 +38,6 @@ class WebViewController: UIViewController {
 
     contentView.webViewBgColor = bgColor
     contentView.backAction = onBack
-    contentView.url = url
   }
 
   private func onBack() {

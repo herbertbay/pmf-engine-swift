@@ -12,26 +12,13 @@ class WebPageContentView: UIView, WKNavigationDelegate, WKUIDelegate {
 
   var backAction: (() -> Void)?
 
-  var url: URL? {
-    didSet {
-      guard let url = url else {
-        return
-      }
-      webView.load(URLRequest(url: url))
-    }
-  }
-
   var webViewBgColor: UIColor? {
     didSet {
       webView.backgroundColor = webViewBgColor
     }
   }
 
-  private lazy var webView: WKWebView = {
-    let webView = WKWebView()
-    webView.scrollView.showsVerticalScrollIndicator = false
-    return webView
-  }()
+  private var webView: WKWebView!
 
   private let closeButton: UIButton = {
     let button = UIButton(type: .system)
@@ -40,8 +27,9 @@ class WebPageContentView: UIView, WKNavigationDelegate, WKUIDelegate {
     return button
   }()
 
-  init() {
+  init(webView: WKWebView) {
     super.init(frame: .zero)
+    self.webView = webView
     commonInit()
   }
 
@@ -58,6 +46,7 @@ class WebPageContentView: UIView, WKNavigationDelegate, WKUIDelegate {
     addSubview(webView)
     addSubview(closeButton)
 
+    webView.scrollView.showsVerticalScrollIndicator = false
     webView.translatesAutoresizingMaskIntoConstraints = false
     NSLayoutConstraint.activate([
       webView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 10),

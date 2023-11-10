@@ -48,6 +48,7 @@ class WebPageContentView: UIView, WKNavigationDelegate, WKUIDelegate {
 
     webView.scrollView.showsVerticalScrollIndicator = false
     webView.translatesAutoresizingMaskIntoConstraints = false
+    webView.scrollView.contentOffset = .zero
     NSLayoutConstraint.activate([
       webView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 10),
       webView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),

@@ -75,7 +75,7 @@ public final class PMFEngine: NSObject, PMFProtocol {
 
     pmfNetworkService.getFormActions(accountId: accountId, userId: userId, for: eventName) { [weak self] commands in
       guard let command = commands?.first(where: { $0.type == "form" }), let url = URL(string: command.url) else { return }
-      self?.showPopup(url: url, popupView: popupView, bgColor: "FFFFFF", onViewController: onViewController)
+      self?.showPopup(url: url, popupView: popupView, bgColor: command.formData?.colors?.background, onViewController: onViewController)
     }
   }
 

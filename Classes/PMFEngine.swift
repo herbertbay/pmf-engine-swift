@@ -132,8 +132,22 @@ public final class PMFEngine: NSObject, PMFProtocol {
 
 extension PMFEngine: WKNavigationDelegate {
   public func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-      self.openController?()
+    self.checkElementVisibility(webView: webView)
+  }
+
+  func checkElementVisibility(webView: WKWebView) {
+    let javascript = "var elements = document.getElementsByClassName('step-heading'); elements.length > 0 && elements[0].offsetParent !== null;"
+
+    webView.evaluateJavaScript(javascript) { [weak self] (result, error) in
+      if let isVisible = result as? Bool, isVisible {
+        DispatchQueue.main.async {
+          self?.openController?()
+        }
+      } else {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+          self?.checkElementVisibility(webView: webView)
+        }
+      }
     }
   }
 }

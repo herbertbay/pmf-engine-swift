@@ -84,18 +84,18 @@ public final class PMFEngine: NSObject, PMFProtocol {
 
     let viewController = onViewController ?? UIApplication.shared.windows.first?.rootViewController
 
+    let formShowingCompletion: Action = { [weak self] in
+      self?.pmfNetworkService.trackFormShowing(accountId: accountId, userId: userId)
+    }
+
     guard let popupView = popupView else {
-      showWebController(withURL: url, bgColor: bgColor, viewController: viewController)
+      showWebController(withURL: url, bgColor: bgColor, viewController: viewController, completion: formShowingCompletion)
       return
     }
 
     let pmfAlertVC = PMFEngineViewController(
       contentView: popupView
     )
-
-    let formShowingCompletion: Action = { [weak self] in
-      self?.pmfNetworkService.trackFormShowing(accountId: accountId, userId: userId)
-    }
 
     popupView.pressedShowButton = { [weak self] in
       self?.showWebController(withURL: url, bgColor: bgColor, viewController: pmfAlertVC)
@@ -110,12 +110,13 @@ public final class PMFEngine: NSObject, PMFProtocol {
     viewController?.present(pmfAlertVC, animated: false, completion: formShowingCompletion)
   }
 
-  internal func showWebController(withURL url: URL, bgColor: String?, viewController: UIViewController?) {
+  internal func showWebController(withURL url: URL, bgColor: String?, viewController: UIViewController?, completion: (() -> Void)? = nil) {
     let webView = WKWebView(frame: .zero)
     let request = URLRequest(url: url)
     let webViewTag = 123
 
     webView.navigationDelegate = self
+    webView.scrollView.contentOffset = .zero
     webView.load(request)
     webView.tag = webViewTag
     viewController?.view.addSubview(webView)
@@ -123,7 +124,7 @@ public final class PMFEngine: NSObject, PMFProtocol {
     openController = {
       let webPageViewController = WebViewController(webView: webView, bgColor: bgColor)
       viewController?.view.subviews.filter { $0.tag == webViewTag }.forEach { $0.removeFromSuperview() }
-      viewController?.present(webPageViewController, animated: true, completion: nil)
+      viewController?.present(webPageViewController, animated: true, completion: completion)
     }
   }
 }
